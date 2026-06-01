@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Journey of Electrons ⚡</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght=500;700&family=Outfit:wght=400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- PALET WARNA PASTEL PROFESIONAL --- */
+        :root {
+            --bg-body: #F8FAFC;
+            --soft-blue: #D1E8FF;
+            --soft-green: #D1F2D1;
+            --soft-yellow: #FFF2CC;
+            --soft-red: #FFD1D1;
+            --text-main: #334155;
+            --border-tech: #475569;
+            --white: #FFFFFF;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            padding-bottom: 50px;
+        }
+
+        h1, h2, h3, h4, .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+        /* --- NAVBAR --- */
+        nav {
+            background-color: var(--white);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #E2E8F0;
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .nav-logo { font-size: 24px; color: #1E293B; display: flex; align-items: center; gap: 10px; }
+        .nav-logo i { color: #6366F1; }
+
+        .score-box {
+            background: var(--soft-blue);
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 2px solid var(--border-tech);
+            font-weight: 700;
+        }
+
+        /* --- CONTAINER --- */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+
+        /* --- GHEIYA ROBOT BANNER --- */
+        .ghei-banner {
+            background-color: var(--white);
+            border: 3px solid var(--border-tech);
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+            box-shadow: 6px 6px 0px #CBD5E1;
+        }
+
+        .ghei-img {
+            width: 100px; height: 100px;
+            background: var(--soft-blue);
+            border-radius: 50%;
+            border: 3px solid var(--border-tech);
+            display: flex; align-items: center; justify-content: center;
+            animation: floatRobot 4s infinite ease-in-out;
+            overflow: hidden;
+        }
+
+        .ghei-img img { width: 80%; height: 80%; object-fit: contain; }
+        .ghei-msg h1 { font-size: 26px; color: #1E293B; margin-bottom: 5px; }
+
+        /* --- LEVEL TABS --- */
+        .level-nav { display: flex; gap: 15px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 10px; }
+        
+        .lvl-btn {
+            padding: 15px 25px;
+            border: 2px solid var(--border-tech);
+            border-radius: 15px;
+            background: var(--white);
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            display: flex; align-items: center; gap: 10px;
+            box-shadow: 4px 4px 0px #CBD5E1;
+        }
+
+        .lvl-btn:disabled { background: #E2E8F0; color: #94A3B8; cursor: not-allowed; box-shadow: none; transform: none; border-color: #CBD5E1; }
+        .lvl-btn.active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px var(--border-tech); background: var(--soft-blue); }
+
+        /* --- CONTENT GRID --- */
+        .main-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; }
+        @media (max-width: 950px) { .main-grid { grid-template-columns: 1fr; } }
+
+        .card { background: var(--white); border: 3px solid var(--border-tech); border-radius: 20px; padding: 25px; }
+
+        .sub-nav { display: flex; gap: 10px; margin-bottom: 20px; background: #F1F5F9; padding: 5px; border-radius: 12px; }
+        .sub-btn { flex: 1; padding: 10px; border: none; background: transparent; font-weight: 700; cursor: pointer; border-radius: 8px; }
+        .sub-btn.active { background: var(--white); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+        .sub-pane { display: none; }
+        .sub-pane.active { display: block; }
+
+        /* --- MATERI --- */
+        .materi-box { margin-bottom: 20px; }
+        .materi-box h4 { margin-bottom: 10px; color: #1E293B; display: flex; align-items: center; gap: 10px; font-size: 18px; }
+        .materi-box p { font-size: 15px; line-height: 1.6; color: #475569; margin-bottom: 10px; }
+
+        /* --- GALLERY GRID --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .gallery-item {
+            background: #F8FAFC; border: 2px solid #E2E8F0; border-radius: 15px;
+            padding: 15px; text-align: center; transition: 0.3s;
+        }
+        .gallery-item:hover { border-color: #6366F1; background: var(--white); }
+        .gallery-item img { width: 100%; height: 95px; object-fit: contain; margin-bottom: 10px; }
+        .gallery-item h5 { font-size: 14px; margin-bottom: 5px; color: #1E293B; }
+        .gallery-item p { font-size: 12px; color: #64748B; }
+
+        /* --- LAB --- */
+        .lab-frame { background: #1E293B; border-radius: 15px; height: 400px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; border: 2px solid var(--border-tech); }
+        .lab-visual { width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 48px; margin-bottom: 20px; border: 2px dashed rgba(255,255,255,0.3); }
+        
+        .lab-btn-link { background: #6366F1; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; font-family: 'Outfit', sans-serif; cursor: pointer; text-decoration: none; margin-top: 15px; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); transition: 0.2s; }
+        .lab-btn-link:hover { background: #4F46E5; transform: translateY(-2px); }
+
+        /* --- QUIZ AREA --- */
+        .quiz-card { margin-top: 30px; background: var(--soft-green); border: 3px solid var(--border-tech); border-radius: 20px; padding: 30px; }
+        .q-text { background: var(--white); padding: 20px; border-radius: 15px; border: 2px solid var(--border-tech); font-size: 18px; font-weight: 600; margin: 15px 0; }
+        .ans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 600px) { .ans-grid { grid-template-columns: 1fr; } }
+        .ans-btn { background: var(--white); border: 2px solid var(--border-tech); padding: 15px; border-radius: 12px; font-weight: 600; cursor: pointer; text-align: left; transition: 0.2s; }
+        .ans-btn:hover { background: #F8FAFC; transform: translateY(-2px); }
+
+        /* --- ANIMATIONS --- */
+        @keyframes floatRobot {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pipe { width: 100%; height: 20px; background: #E2E8F0; border-radius: 10px; position: relative; margin: 20px 0; overflow: hidden;}
+        .flow { height: 100%; width: 0%; background: #3B82F6; transition: 0.5s; }
+        .flow.active { width: 100%; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo"><i class="fa-solid fa-microchip"></i> The Journey of Electrons</div>
+        <div class="score-box" id="score-display">⭐ Score: 0</div>
+    </nav>
+
+    <div class="container">
+        
+        <div class="ghei-banner">
+            <div class="ghei-img">
+                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Gheiya Robot">
+            </div>
+            <div class="ghei-msg">
+                <h1>Gheiya: System Online</h1>
+                <p id="ghei-text">Selamat datang di modul interaktif mekatronika. Selesaikan kuis untuk membuka level akses berikutnya.</p>
+            </div>
+        </div>
+
+        <div class="level-nav">
+            <button class="lvl-btn active" id="btn-lvl1" onclick="loadLevel(1)"><i class="fa-solid fa-layer-group"></i> Lvl 1: Pasif</button>
+            <button class="lvl-btn" id="btn-lvl2" onclick="loadLevel(2)" disabled><i class="fa-solid fa-lock"></i> Lvl 2: Aktif</button>
+            <button class="lvl-btn" id="btn-lvl3" onclick="loadLevel(3)" disabled><i class="fa-solid fa-lock"></i> Lvl 3: I/O Device</button>
+            <button class="lvl-btn" id="btn-lvl4" onclick="loadLevel(4)" disabled><i class="fa-solid fa-lock"></i> Lvl 4: Integrated</button>
+        </div>
+
+        <div class="main-grid">
+            <div class="card">
+                <h2 id="lvl-title" style="margin-bottom: 20px; color: #1E293B;">Loading...</h2>
+                
+                <div class="sub-nav">
+                    <button class="sub-btn active" id="tab-teori" onclick="showPane('teori')">Materi</button>
+                    <button class="sub-btn" id="tab-gallery" onclick="showPane('gallery')">Galeri Foto</button>
+                    <button class="sub-btn" id="tab-logic" onclick="showPane('logic')">Logika Animasi</button>
+                </div>
+
+                <div id="pane-teori" class="sub-pane active">
+                    <div id="materi-content"></div>
+                </div>
+
+                <div id="pane-gallery" class="sub-pane">
+                    <div class="gallery-grid" id="gallery-content"></div>
+                </div>
+
+                <div id="pane-logic" class="sub-pane">
+                    <div id="logic-content" style="text-align: center; padding: 20px;"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <i class="fa-solid fa-flask-vial" style="color: #6366F1;"></i> <h3>Virtual Laboratory</h3>
+                </div>
+                <div id="tinkercad-container"></div>
+            </div>
+        </div>
+
+        <div class="quiz-card" id="quiz-area"></div>
+
+    </div>
+
+    <script>
+        const database = {
+            1: {
+                title: "Level 1: Komponen Pasif (Dasar Arus)",
+                materi: `
+                    <div class="materi-box">
+                        <h4>1. Resistor (Hambatan)</h4>
+                        <p>Resistor berfungsi sebagai pembatas atau penghambat arus listrik yang mengalir dalam rangkaian. Tanpa resistor, komponen sensitif seperti LED bisa rusak/terbakar karena kelebihan arus. Nilainya diukur dengan satuan Ohm (Ω).</p>
+                    </div>
+                    <div class="materi-box">
+                        <h4>2. Kapasitor (Kondensator)</h4>
+                        <p>Kapasitor berfungsi menyimpan energi listrik dalam medan elektrostatik untuk sementara waktu. Komponen ini sering digunakan sebagai penyaring (filter) tegangan pada catu daya agar arus menjadi halus.</p>
+                    </div>
+                    <div class="materi-box">
+                        <h4>3. Induktor (Kumparan)</h4>
+                        <p>Terdiri dari lilitan kawat tembaga. Induktor berfungsi menyimpan energi dalam bentuk medan magnet ketika dialiri arus listrik. Sangat berguna pada sirkuit pemfilter frekuensi radio.</p>
+                    </div>
+                `,
+                gallery: [
+                    { img: "resistor-gelang.png", name: "Resistor", desc: "Penghambat arus dengan kode gelang warna." },
+                    { img: "kapasitor-elco.png", name: "Kapasitor", desc: "Penyimpan muatan berbentuk tabung silinder." },
+                    { img: "induktor-toroid.png", name: "Induktor", desc: "Lilitan kawat penyimpan medan magnet." }
+                ],
+                logic: `
+                    <p style="margin-bottom: 10px;">Analogi Kapasitor: Menampung elektron seperti tangki menampung air.</p>
+                    <div class="pipe"><div class="flow" id="f1"></div></div>
+                    <button class="ans-btn" style="text-align:center; display:block; width:100%;" onclick="document.getElementById('f1').classList.toggle('active')">Isi / Buang Muatan</button>
+                `,
+                labIcon: "fa-calculator",
+                labTitle: "Simulasi LED dengan Resistor",
+                tinkercad: "https://www.tinkercad.com/things/fKfkO0EfVuG-simulasi-menyalakan-led-dengan-resistor",
+                quiz: [
+                    { q: "Satuan dari nilai hambatan pada komponen Resistor adalah?", a: ["Volt", "Farad", "Ohm", "Ampere"], c: 2 },
+                    { q: "Komponen pasif yang berfungsi menyimpan muatan listrik sementara adalah?", a: ["Resistor", "Kapasitor", "Dioda", "IC"], c: 1 },
+                    { q: "Warna emas pada gelang terakhir sebuah resistor menunjukkan nilai?", a: ["Hambatan utama", "Koefisien suhu", "Toleransi sebesar 5%", "Daya maksimum"], c: 2 },
+                    { q: "Induktor menyimpan energi listrik dalam bentuk medan?", a: ["Listrik statis", "Magnet", "Panas terpusat", "Cahaya pendar"], c: 1 }
+                ]
+            },
+            2: {
+                title: "Level 2: Komponen Aktif & Semikonduktor",
+                materi: `
+                    <div class="materi-box">
+                        <h4>1. Dioda Penyearah</h4>
+                        <p>Komponen semikonduktor yang hanya mengizinkan arus listrik mengalir ke satu arah saja (Anoda ke Katoda) dan memblokir arah sebaliknya. Berguna untuk mengubah arus AC menjadi DC.</p>
+                    </div>
+                    <div class="materi-box">
+                        <h4>2. Transistor</h4>
+                        <p>Komponen aktif yang berfungsi sebagai saklar elektronik berkecepatan tinggi atau penguat sinyal. Dengan memberikan arus kecil pada kaki Basis, kita bisa mengalirkan arus yang lebih besar dari Kolektor ke Emitor.</p>
+                    </div>
+                    <div class="materi-box">
+                        <h4>3. IC (Integrated Circuit)</h4>
+                        <p>Sirkuit terpadu mikro yang menggabungkan jutaan transistor, dioda, dan resistor ke dalam satu serpihan silikon kecil berwarna hitam demi efisiensi ruang rangkaian.</p>
+                    </div>
+                `,
+                gallery: [
+                    { img: "dioda-silikon.png", name: "Dioda", desc: "Katup satu arah penyearah arus." },
+                    { img: "transistor-to92.png", name: "Transistor", desc: "Komponen pengontrol gerbang saklar elektronik." },
+                    { img: "ic-dip8.png", name: "IC DIP-8", desc: "Chip sirkuit terpadu mini." }
+                ],
+                logic: `
+                    <p style="margin-bottom: 10px;">Analogi Transistor: Kaki Basis bekerja seperti tuas keran air yang mengontrol aliran utama.</p>
+                    <div class="pipe"><div class="flow" id="f2"></div></div>
+                    <button class="ans-btn" style="text-align:center; display:block; width:100%;" onclick="document.getElementById('f2').classList.toggle('active')">Buka / Tutup Jalur Basis</button>
+                `,
+                labIcon: "fa-toggle-on",
+                labTitle: "Simulasi LED Fade In",
+                tinkercad: "https://www.tinkercad.com/things/l5xRBmvBvTd-led-fade-in",
+                quiz: [
+                    { q: "Kaki pada komponen Dioda yang dihubungkan ke kutub negatif disebut?", a: ["Anoda", "Katoda", "Basis", "Emitor"], c: 1 },
+                    { q: "Transistor bipolar (BJT) memiliki 3 kaki utama, yaitu Basis, Kolektor, dan...?", a: ["Anoda", "Katoda", "Emitor", "Gate"], c: 2 },
+                    { q: "Apa fungsi utama Dioda dalam sebuah rangkaian Power Supply?", a: ["Menyimpan muatan eksternal", "Menghambat laju arus", "Penyearah gelombang AC ke DC", "Sensor deteksi cahaya"], c: 2 },
+                    { q: "Kepanjangan teknis dari komponen IC adalah?", a: ["Internal Code", "Integrated Circuit", "Input Controller", "Instant Connection"], c: 1 }
+                ]
+            },
+            3: {
+                title: "Level 3: Input & Output Device",
+                materi: `
+                    <div class="materi-box">
+                        <h4>1. LDR (Light Dependent Resistor)</h4>
+                        <p>Jenis resistor yang nilai hambatannya berubah mengikuti intensitas cahaya sekitar. Saat kondisi terang benderang, nilai hambatannya akan mengecil sehingga arus lancar mengalir.</p>
+                    </div>
+                    <div class="materi-box">
+                        <h4>2. Potensiometer</h4>
+                        <p>Resistor tiga kaki yang nilai hambatannya dapat diatur secara manual oleh pengguna dengan cara memutar tuas atau kenopnya. Contoh pada pengatur volume audio.</p>
+                    </div>
+                    <div class="materi-box">
+                        <h4>3. Buzzer Aktif</h4>
+                        <p>Komponen output elektro-akustik yang berfungsi mengubah sinyal listrik menjadi getaran suara gelombang bunyi (suara peringatan/beep).</p>
+                    </div>
+                `,
+                gallery: [
+                    { img: "sensor-ldr.png", name: "LDR", desc: "Sensor resistensi peka cahaya luar." },
+                    { img: "potensiometer.png", name: "Potensiometer", desc: "Hambatan variabel dengan kenop putar." },
+                    { img: "buzzer-aktif.png", name: "Buzzer", desc: "Komponen transduser penghasil bunyi." }
+                ],
+                logic: `
+                    <p style="margin-bottom: 10px;">Analogi LDR: Geser bar intensitas untuk melihat pengaruh hambatan terhadap aliran listrik.</p>
+                    <input type="range" style="width:100%; margin-bottom:10px;" oninput="document.getElementById('f3').style.opacity = this.value/100">
+                    <div class="pipe"><div class="flow active" id="f3" style="opacity: 0.5"></div></div>
+                `,
+                labIcon: "fa-bolt",
+                labTitle: "Simulasi Sensor LDR",
+                tinkercad: "https://www.tinkercad.com/things/26d174xIrWx-ldr",
+                quiz: [
+                    { q: "Jika cahaya yang mengenai permukaan LDR semakin terang, maka hambatannya akan?", a: ["Membesar", "Mengecil", "Tetap konstan", "Hilang total"], c: 1 },
+                    { q: "Manakah komponen yang digunakan untuk kenop pengatur volume suara manual?", a: ["Resistor Tetap", "Sensor LDR", "Potensiometer", "Chip IC"], c: 2 },
+                    { q: "Komponen piezo buzzer termasuk ke dalam kategori komponen?", a: ["Input Sinyal", "Proses Komputasi", "Output / Aktuator", "Sumber Tegangan"], c: 2 },
+                    { q: "LDR merupakan singkatan dari?", a: ["Light Direct Resistor", "Light Dependent Resistor", "Low Digital Resistance", "Laser Diode Resistor"], c: 1 }
+                ]
+            },
+            4: {
+                title: "Level 4: Integrated Project Lab",
+                materi: `
+                    <div class="materi-box">
+                        <h4>1. Breadboard (Project Board)</h4>
+                        <p>Papan berlubang koneksi tempat merakit komponen elektronik untuk membuat prototipe sirkuit uji coba tanpa perlu melakukan proses penyolderan permanen.</p>
+                    </div>
+                    <div class="materi-box">
+                        <h4>2. Kabel Jumper</h4>
+                        <p>Kabel penghubung berujung pin besi khusus untuk menginterkoneksikan jalur antar lubang pada breadboard dan pin modul mikrokontroler.</p>
+                    </div>
+                    <div class="materi-box">
+                        <h4>3. Baterai 9V Kotak</h4>
+                        <p>Sumber catu daya tegangan searah (DC) portabel yang praktis digunakan sebagai penyedia arus awal sirkuit mekatronika terpadu.</p>
+                    </div>
+                `,
+                gallery: [
+                    { img: "breadboard.png", name: "Breadboard", desc: "Papan plastik tempat eksperimen sirkuit." },
+                    { img: "kabel-jumper.png", name: "Kabel Jumper", desc: "Kabel interkoneksi pin komponen." },
+                    { img: "baterai-9v.png", name: "Baterai 9V", desc: "Sumber tegangan DC konstan." }
+                ],
+                logic: `
+                    <p style="margin-bottom: 10px;">Sistem Terintegrasi: Kolaborasi apik seluruh komponen menyalakan sistem otomatis!</p>
+                    <div class="pipe"><div class="flow active" style="background: linear-gradient(90deg, #EF4444, #3B82F6, #10B981);"></div></div>
+                `,
+                labIcon: "fa-microchip",
+                labTitle: "Gerbang Logika AND dan OR",
+                tinkercad: "https://www.tinkercad.com/things/i7MilzzxrIe-gerbang-logika-and-dan-or",
+                quiz: [
+                    { q: "Jalur panjang horizontal luar pada papan Breadboard biasanya digunakan untuk jalur?", a: ["Data Bus Sinyal", "Power Tegangan (VCC/GND)", "Sambungan Khusus IC", "Kaki Sensor"], c: 1 },
+                    { q: "Kabel jumper yang memiliki ujung jarum menonjol di kedua sisinya dinamakan jenis?", a: ["Male-to-Female", "Female-to-Female", "Male-to-Male", "Jumper Clip Shield"], c: 2 },
+                    { q: "Baterai kotak 9V menghasilkan jenis aliran arus listrik berupa?", a: ["AC (Bolak-balik)", "DC (Searah)", "Statis Beriak", "Elektromagnetik Sesaat"], c: 1 },
+                    { q: "Sebelum mencetak jalur sirkuit permanen di papan PCB, perakit mengujinya di?", a: ["Breadboard", "Isolator Kardus", "Papan Kayu", "Chassis Besi"], c: 0 }
+                ]
+            }
+        };
+
+        let currentLevel = 1;
+        let unlockedLevels = [1];
+        let quizIdx = 0;
+        let score = 0;
+
+        function loadLevel(lvl) {
+            try {
+                currentLevel = lvl;
+                const data = database[lvl];
+                
+                document.querySelectorAll('.lvl-btn').forEach(b => b.classList.remove('active'));
+                if(document.getElementById('btn-lvl' + lvl)) {
+                    document.getElementById('btn-lvl' + lvl).classList.add('active');
+                }
+                
+                document.getElementById('lvl-title').innerText = data.title;
+                document.getElementById('materi-content').innerHTML = data.materi;
+                document.getElementById('logic-content').innerHTML = data.logic;
+                
+                document.getElementById('tinkercad-container').innerHTML = `
+                    <div class="lab-frame">
+                        <div class="lab-visual"><i class="fa-solid ${data.labIcon}"></i></div>
+                        <h4 style="color:white; margin-bottom:8px;">${data.labTitle}</h4>
+                        <p style="font-size:13px; color:#94A3B8; max-width:280px; margin-bottom:15px;">Klik tombol di bawah untuk membuka simulasi sirkuit interaktif resmi via Tinkercad.</p>
+                        <a href="${data.tinkercad}" target="_blank" class="lab-btn-link">Mulai Simulasi Lab <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px; margin-left:5px;"></i></a>
+                    </div>
+                `;
+
+                let gHtml = "";
+                if(data.gallery && Array.isArray(data.gallery)) {
+                    data.gallery.forEach(item => {
+                        gHtml += `
+                            <div class="gallery-item">
+                                <img src="${item.img}" alt="${item.name}" onerror="this.src='https://placehold.co/150x95?text=Gambar+Kosong'">
+                                <h5>${item.name}</h5>
+                                <p>${item.desc}</p>
+                            </div>
+                        `;
+                    });
+                }
+                document.getElementById('gallery-content').innerHTML = gHtml;
+
+                quizIdx = 0;
+                renderQuiz();
+                showPane('teori');
+                document.getElementById('ghei-text').innerText = `Gheiya: Memuat sistem data Level ${lvl}. Pelajari detail materi sebelum memulai tes kelayakan.`;
+            } catch (e) {
+                console.log("Error bypassed: ", e);
+            }
+        }
+
+        function showPane(p) {
+            document.querySelectorAll('.sub-pane').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.sub-btn').forEach(el => el.classList.remove('active'));
+            if(document.getElementById('pane-' + p)) document.getElementById('pane-' + p).classList.add('active');
+            if(document.getElementById('tab-' + p)) document.getElementById('tab-' + p).classList.add('active');
+        }
+
+        function renderQuiz() {
+            const data = database[currentLevel];
+            const area = document.getElementById('quiz-area');
+
+            if (quizIdx >= data.quiz.length) {
+                area.innerHTML = `<h3>✅ Evaluasi Level ${currentLevel} Selesai!</h3><p style="margin-top:5px;">Akumulasi perolehan skor kamu: <strong>${score} Poin</strong></p>`;
+                if (currentLevel < 4) {
+                    if (!unlockedLevels.includes(currentLevel + 1)) unlockedLevels.push(currentLevel + 1);
+                    area.innerHTML += `<button class="ans-btn" style="background:var(--soft-blue); margin-top:15px; text-align:center; display:block; width:100%;" onclick="loadLevel(${currentLevel + 1})">Buka Akses & Lanjut ke Level ${currentLevel + 1} 🔓</button>`;
+                } else {
+                    area.innerHTML += `<p style="margin-top:10px; font-weight:bold; color:#6366F1;">🏆 Selamat! Kamu telah menuntaskan seluruh standarisasi modul laboratorium sirkuit terpadu.</p>`;
+                }
+                updateLocks();
+                return;
+            }
+
+            const q = data.quiz[quizIdx];
+            let ansH = "";
+            q.a.forEach((ans, i) => {
+                ansH += `<button class="ans-btn" onclick="check(${i})">${ans}</button>`;
+            });
+
+            area.innerHTML = `
+                <div style="display:flex; justify-content:space-between; font-weight:700; font-size:14px; color:#475569;">
+                    <span>SISTEM EVALUASI AKADEMIK LEVEL ${currentLevel}</span>
+                    <span>SOAL ${quizIdx + 1} / 4</span>
+                </div>
+                <div class="q-text">${q.q}</div>
+                <div class="ans-grid">${ansH}</div>
+            `;
+        }
+
+        function check(i) {
+            if (i === database[currentLevel].quiz[quizIdx].c) {
+                score += 25;
+                document.getElementById('ghei-text').innerText = "Gheiya: Korelasi jawaban sinkron dengan sistem database. Poin berhasil ditambah.";
+            } else {
+                document.getElementById('ghei-text').innerText = "Gheiya: Ketidakcocokan logika terdeteksi. Silakan ulas kembali teks visual pada modul.";
+            }
+            document.getElementById('score-display').innerText = `⭐ Score: ${score}`;
+            quizIdx++;
+            renderQuiz();
+        }
+
+        function updateLocks() {
+            unlockedLevels.forEach(lvl => {
+                const b = document.getElementById('btn-lvl' + lvl);
+                if (b) {
+                    b.disabled = false;
+                    b.innerHTML = b.innerHTML.replace('fa-lock', 'fa-unlock');
+                }
+            });
+        }
+
+        window.onload = function() {
+            loadLevel(1);
+        };
+    </script>
+</body>
+</html>
